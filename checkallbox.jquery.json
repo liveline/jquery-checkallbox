@@ -1,0 +1,29 @@
+{
+  "name": "checkallbox",
+  "title": "checkallbox",
+  "description": "A jQuery plugin that *quite literally* checks all the boxes.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/liveline/jquery-checkallbox",
+  "author": {
+    "name": "James Bebbington",
+    "email": "james.bebbington@gmail.com",
+    "url": "http://liveminds.co.uk/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/liveline/jquery-checkallbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liveline/jquery-checkallbox/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/liveline/jquery-checkallbox/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "1.7.0"
+  },
+  "keywords": []
+}
