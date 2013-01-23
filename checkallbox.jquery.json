@@ -1,8 +1,8 @@
 {
   "name": "checkallbox",
-  "title": "checkallbox",
+  "title": "jQuery.checkallbox",
   "description": "A jQuery plugin that *quite literally* checks all the boxes.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/liveline/jquery-checkallbox",
   "author": {
     "name": "James Bebbington",
@@ -23,7 +23,7 @@
     }
   ],
   "dependencies": {
-    "jquery": "1.7.0"
+    "jquery": ">=1.7.0"
   },
-  "keywords": []
+  "keywords": ["checkbox", "checkboxes", "form", "forms", "check"]
 }

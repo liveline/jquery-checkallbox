@@ -1,10 +1,6 @@
-/*
- * jquery.checkallbox
- * https://github.com/liveline/jquery-checkallbox
- *
- * Copyright (c) 2013 James Bebbington
- * Licensed under the MIT license.
- */
+/*! jQuery.checkallbox - v1.0.0 - 2013-01-24
+* https://github.com/liveline/jquery-checkallbox
+* Copyright (c) 2013 James Bebbington; Licensed MIT */
 
 (function($) {
 

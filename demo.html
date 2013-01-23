@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery.checkallbox</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        padding: 40px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      form {
+        display: inline-block;
+        border: 3px solid white;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        box-shadow: 0 0 5px #999;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      form header {
+        margin-bottom: 1px;
+        padding: 10px 0 10px 10px;
+        background-color: #f4f4f4;
+        -webkit-border-radius: 3px 3px 0 0;
+        -moz-border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0;
+      }
+      form fieldset {
+        margin: 0;
+        padding: 1px 0;
+        background-color: #f8f8f8;
+        border: 0;
+        -webkit-border-radius: 0 0 3px 3px;
+        -moz-border-radius: 0 0 3px 3px;
+        border-radius: 0 0 3px 3px;
+      }
+      form p label {
+        padding: 0 10px;
+      }
+      form input {
+        margin-right: 10px;
+      }
+      form footer {
+        padding: 5px 2px 2px;
+        color: #999;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+    </style>
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="dist/jquery.checkallbox.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <h1>jQuery.checkallbox Demo</h1>
+      <p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
+
+      <h2>Example</h2>
+      <p>
+        <button id="toggle">Add checkallbox</button>
+      </p>
+      <form>
+        <header>Options</header>
+        <fieldset>
+          <p>
+            <label><input type="checkbox" name="option_1" value="1"></input>Option 1</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="option_2" value="1"></input>Option 2</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="option_3" value="1" disabled="disabled"></input>Option 3</label>
+          </p>
+        </fieldset>
+        <footer>
+          <small>N.B. shift+click checkbox to disable/enable.</small>
+        </footer>
+      </form>
+
+    </div>
+    <script type="text/javascript">
+    $(function() {
+      var $form        = $('form');
+      var $checkboxes  = $form.find(':checkbox');
+      var $checkallbox;
+
+      $('button#toggle').toggle(function() {
+        $checkallbox = $('<input type="checkbox"/>').prependTo($form.find('header')).checkallbox();
+        $form.find('header').wrapInner($('<label></label>'))
+        $(this).text('Remove checkallbox');
+      }, function() {
+        $label = $form.find('header label');
+        $label.replaceWith($label.text());
+        $(this).text('Add checkallbox');
+      });
+
+      $form.find('p label').on('click', function(event) {
+        var $checkbox = $(this).find(':checkbox');
+        if (event.shiftKey) {
+          $checkbox.prop('disabled', !$checkbox.prop('disabled'));
+          if ($checkallbox) {
+            $form.trigger(jQuery.Event('change', {target: $checkallbox[0], initial: true}));
+          };
+          event.preventDefault();
+        }
+
+      })
+    });
+    </script>
+  </body>
+</html>

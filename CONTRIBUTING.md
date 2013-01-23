@@ -7,7 +7,7 @@ Please don't edit files in the `dist` subdirectory as they are generated via gru
 Regarding code style like indentation and whitespace, **follow the conventions you see used in the source already.**
 
 ### PhantomJS
-While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
+While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org/), this shouldn't be considered a substitute for the real thing. Please be sure to run the `spec/*.html` unit test file(s) in _actual_ browsers.
 
 See the [Why does grunt complain that PhantomJS isn't installed?](https://github.com/gruntjs/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed) guide in the [Grunt FAQ](https://github.com/gruntjs/grunt/blob/master/docs/faq.md) for help with installing or troubleshooting PhantomJS.
 
@@ -27,9 +27,9 @@ Assuming that you don't see any red, you're ready to go. Just be sure to run `gr
 ## Submitting pull requests
 
 1. Create a new branch, please don't work in your `master` branch directly.
-1. Add failing tests for the change you want to make. Run `grunt` to see the tests fail.
+1. Add failing specs for the change you want to make. Run `grunt` to see the specs fail.
 1. Fix stuff.
 1. Run `grunt` to see if the tests pass. Repeat steps 2-4 until done.
-1. Open `test/*.html` unit test file(s) in actual browser to ensure tests pass everywhere.
+1. Open `spec/*.html` unit test file(s) in actual browser to ensure tests pass everywhere.
 1. Update the documentation to reflect any changes.
 1. Push to your fork and submit a pull request.

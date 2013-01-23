@@ -13,18 +13,28 @@ In your web page:
 ```html
 <script src="jquery.js"></script>
 <script src="dist/jquery.checkallbox.min.js"></script>
+
+<form>
+  <header>Options</header>
+  <p>
+    <label><input type="checkbox" name="option_1" value="1"></input>Option 1</label>
+  </p>
+  <p>
+    <label><input type="checkbox" name="option_2" value="1"></input>Option 2</label>
+  </p>
+</form>
+
 <script>
 jQuery(function($) {
-  $.awesome(); // "awesome"
+  var $form        = $('form');
+  var $checkallbox = $('<input type="checkbox"/>').prependTo($form.find('header')).checkallbox();
+  $form.find('header').wrapInner($('<label></label>'));
 });
 </script>
 ```
 
-## Documentation
-_(Coming soon)_
-
 ## Examples
-_(Coming soon)_
+See `demo.html` for an example of jQuery.checkallbox in action.
 
 ## Release History
-_(Nothing yet)_
+v1.0.0 Initial release
