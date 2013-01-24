@@ -1,5 +1,5 @@
-/*! jQuery.checkallbox - v1.0.0 - 2013-01-24
-* https://github.com/liveline/jquery-checkallbox
+/*! jQuery.checkallbox - v1.0.1 - 2013-01-24
+* http://liveline.github.com/jquery-checkallbox/
 * Copyright (c) 2013 James Bebbington; Licensed MIT */
 
 (function($) {
@@ -18,7 +18,7 @@
           $checkboxes.filter(':enabled').prop('checked', $checkallbox.prop('checked'));
         } else {
           // Initial state or checkbox changed
-          $checkallbox.prop('checked',  $checkboxes.length > 0 && $checkboxes.filter(':enabled').not(':checked').length === 0);
+          $checkallbox.prop('checked',  $checkboxes.filter(':enabled').length > 0 && $checkboxes.filter(':enabled').not(':checked').length === 0);
           $checkallbox.prop('disabled', $checkboxes.filter(':enabled').length === 0);
         }
       });

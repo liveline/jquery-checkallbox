@@ -37,4 +37,9 @@ jQuery(function($) {
 See `demo.html` for an example of jQuery.checkallbox in action.
 
 ## Release History
-v1.0.0 Initial release
+
+### v1.0.1
+ * Fixed issue with checkallbox checked state when checkboxes disabled [#1]
+
+### v1.0.0
+ * Initial release
