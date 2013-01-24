@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jquery-checkallbox by liveline</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Jquery-checkallbox</h1>
+        <p>A jQuery plugin that *quite literally* checks all the boxes.</p>
+
+        <p class="view"><a href="https://github.com/liveline/jquery-checkallbox">View the Project on GitHub <small>liveline/jquery-checkallbox</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/liveline/jquery-checkallbox/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/liveline/jquery-checkallbox/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/liveline/jquery-checkallbox">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>jQuery.checkallbox</h1>
+
+<p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
+
+<h2>Getting Started</h2>
+
+<p>Download the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.min.js">production version</a> or the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.js">development version</a>.</p>
+
+<p>In your web page:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/jquery.checkallbox.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;form&gt;</span>
+  <span class="nt">&lt;header&gt;</span>Options<span class="nt">&lt;/header&gt;</span>
+  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"option_1"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/input&gt;</span>Option 1<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"option_2"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/input&gt;</span>Option 2<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="nx">jQuery</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">$form</span>        <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">$checkallbox</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'&lt;input type="checkbox"/&gt;'</span><span class="p">).</span><span class="nx">prependTo</span><span class="p">(</span><span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">'header'</span><span class="p">)).</span><span class="nx">checkallbox</span><span class="p">();</span>
+  <span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">'header'</span><span class="p">).</span><span class="nx">wrapInner</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'&lt;label&gt;&lt;/label&gt;'</span><span class="p">));</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h2>Examples</h2>
+
+<p>See <code>demo.html</code> for an example of jQuery.checkallbox in action.</p>
+
+<h2>Release History</h2>
+
+<p>v1.0.0 Initial release</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/liveline">liveline</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-2524036-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
