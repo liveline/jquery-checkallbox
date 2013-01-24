@@ -3,7 +3,7 @@
   "title": "jQuery.checkallbox",
   "description": "A jQuery plugin that *quite literally* checks all the boxes.",
   "version": "1.0.0",
-  "homepage": "https://github.com/liveline/jquery-checkallbox",
+  "homepage": "http://liveline.github.com/jquery-checkallbox/",
   "author": {
     "name": "James Bebbington",
     "email": "james.bebbington@gmail.com",
