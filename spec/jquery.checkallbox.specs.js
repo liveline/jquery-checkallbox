@@ -248,6 +248,9 @@
             assert($checkallbox).isDisabled();
           });
 
+          it("should not be checked", function() {
+            assert($checkallbox).isNotChecked();
+          });
         });
 
       });

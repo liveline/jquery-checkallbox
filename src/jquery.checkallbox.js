@@ -22,7 +22,7 @@
           $checkboxes.filter(':enabled').prop('checked', $checkallbox.prop('checked'));
         } else {
           // Initial state or checkbox changed
-          $checkallbox.prop('checked',  $checkboxes.length > 0 && $checkboxes.filter(':enabled').not(':checked').length === 0);
+          $checkallbox.prop('checked',  $checkboxes.filter(':enabled').length > 0 && $checkboxes.filter(':enabled').not(':checked').length === 0);
           $checkallbox.prop('disabled', $checkboxes.filter(':enabled').length === 0);
         }
       });
