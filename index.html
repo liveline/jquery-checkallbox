@@ -5,22 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Jquery-checkallbox by liveline</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="libs/prism/prism.css">
+    <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="libs/prism/prism.js"></script>
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="dist/jquery.checkallbox.min.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>Jquery-checkallbox</h1>
-        <p>A jQuery plugin that *quite literally* checks all the boxes.</p>
-
-        <p class="view"><a href="https://github.com/liveline/jquery-checkallbox">View the Project on GitHub <small>liveline/jquery-checkallbox</small></a></p>
-
-
+        <h1>jQuery.checkallbox</h1>
+        <p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
+        <p class="view"><a href="https://github.com/liveline/jquery-checkallbox">View the Project on GitHub</a></p>
         <ul>
           <li><a href="https://github.com/liveline/jquery-checkallbox/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/liveline/jquery-checkallbox/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -28,62 +28,119 @@
         </ul>
       </header>
       <section>
-        <h1>jQuery.checkallbox</h1>
+        <h1>What's all this about then?</h1>
+        <p>
+          jQuery.checkallbox gives you checkboxes that can control other groups of checkboxes, allowing you to check and uncheck them en masse.
+        </p>
+        <h2>Demo</h2>
+        <p>
+          <button id="toggle">Add checkallbox</button>
+        </p>
+        <form>
+          <fieldset>
+            <legend>Options</legend>
+            <p>
+              <label><input type="checkbox" name="option_1" value="1"></input>Option 1</label>
+            </p>
+            <p>
+              <label><input type="checkbox" name="option_2" value="1"></input>Option 2</label>
+            </p>
+            <p>
+              <label><input type="checkbox" name="option_3" value="1" disabled="disabled"></input>Option 3</label>
+            </p>
+          </fieldset>
+          <p>
+            <small>N.B. shift+click checkbox to disable/enable.</small>
+          </p>
+        </form>
+        <script type="text/javascript">
+          $(function() {
+            var $form        = $('form');
+            var $checkboxes  = $form.find(':checkbox');
+            var $checkallbox;
 
-<p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
+            $('button#toggle').toggle(function() {
+              $checkallbox = $('<input type="checkbox"/>').prependTo($form.find('legend')).checkallbox();
+              $form.find('legend').wrapInner($('<label></label>'))
+              $(this).text('Remove checkallbox');
+            }, function() {
+              $label = $form.find('legend label');
+              $label.replaceWith($label.text());
+              $(this).text('Add checkallbox');
+            });
 
-<h2>Getting Started</h2>
+            $form.find('p label').on('click', function(event) {
+              var $checkbox = $(this).find(':checkbox');
+              if (event.shiftKey) {
+                $checkbox.prop('disabled', !$checkbox.prop('disabled'));
+                if ($checkallbox) {
+                  $form.trigger(jQuery.Event('change', {target: $checkallbox[0], initial: true}));
+                };
+                event.preventDefault();
+              }
 
-<p>Download the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.min.js">production version</a> or the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.js">development version</a>.</p>
-
-<p>In your web page:</p>
-
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"dist/jquery.checkallbox.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-
-<span class="nt">&lt;form&gt;</span>
-  <span class="nt">&lt;header&gt;</span>Options<span class="nt">&lt;/header&gt;</span>
-  <span class="nt">&lt;p&gt;</span>
-    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"option_1"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/input&gt;</span>Option 1<span class="nt">&lt;/label&gt;</span>
-  <span class="nt">&lt;/p&gt;</span>
-  <span class="nt">&lt;p&gt;</span>
-    <span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"option_2"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/input&gt;</span>Option 2<span class="nt">&lt;/label&gt;</span>
-  <span class="nt">&lt;/p&gt;</span>
-<span class="nt">&lt;/form&gt;</span>
-
-<span class="nt">&lt;script&gt;</span>
-<span class="nx">jQuery</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">$form</span>        <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">$checkallbox</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'&lt;input type="checkbox"/&gt;'</span><span class="p">).</span><span class="nx">prependTo</span><span class="p">(</span><span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">'header'</span><span class="p">)).</span><span class="nx">checkallbox</span><span class="p">();</span>
-  <span class="nx">$form</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">'header'</span><span class="p">).</span><span class="nx">wrapInner</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'&lt;label&gt;&lt;/label&gt;'</span><span class="p">));</span>
-<span class="p">});</span>
-<span class="nt">&lt;/script&gt;</span>
-</pre></div>
-
-<h2>Examples</h2>
-
-<p>See <code>demo.html</code> for an example of jQuery.checkallbox in action.</p>
-
-<h2>Release History</h2>
-
-<p>v1.0.0 Initial release</p>
+            })
+          });
+        </script>
+        <h2>Usage</h2>
+        <p>Download the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.min.js">production version</a> or the <a href="https://raw.github.com/liveline/jquery-checkallbox/master/dist/jquery.checkallbox.js">development version</a>.</p>
+        <p>
+          In the <code>&lt;head></code> or <code>&lt;body></code> of your web page:
+        </p>
+        <pre><code class="language-markup">&lt;script type="text/javascript" src="jquery.js">&lt;/script>
+&lt;script type="text/javascript" src="dist/jquery.checkallbox.min.js">&lt;/script></code></pre>
+        <p>
+          Then, given a <code>&lt;form></code> with a number of checkboxes:
+        </p>
+        <pre><code class="language-markup">&lt;form>
+  &lt;header>Options&lt;/header>
+  &lt;p>
+    &lt;label>
+      &lt;input type="checkbox" name="option_1" value="1">&lt;/input>
+      Option 1
+    &lt;/label>
+  &lt;/p>
+  &lt;p>
+    &lt;label>
+      &lt;input type="checkbox" name="option_2" value="1">&lt;/input>
+      Option 2
+    &lt;/label>
+  &lt;/p>
+&lt;/form></code></pre>
+      <p>
+        Inject a <code>&lt;input type="checkbox"></code> into your form to be used as the <em>check all</em> box and call <code>checkallbox()</code> on it:
+      </p>
+       <pre><code class="language-markup">&lt;script type="text/javascript">
+  $(document).ready({
+    var checkallbox = $('&lt;input type="checkbox"/>')
+                         .prependTo($('form header'))
+                         .checkallbox();
+  });
+&lt;/script></code></pre>
+        <p>
+          So that users can also control the checkallbox by clicking on its associated header text, be sure to wrap the checkallbox header text in a <code>&lt;label></code> element, like so:
+        </p>
+        <pre><code class="language-javascript">$('form header').wrapInner($('&lt;label/>'));</code></pre>
+        <h2>More info</h2>
+        <p>
+          For more info, see the <a href="https://github.com/liveline/jquery-checkallbox/blob/master/README.md">README</a>.
+        </p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/liveline">liveline</a></p>
+        <p>This project is maintained by <a href="http://liveline.co.uk/">liveline</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-2524036-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+    <script src="libs/scalefix/scale.fix.js"></script>
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-2524036-1");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
   </body>
 </html>
