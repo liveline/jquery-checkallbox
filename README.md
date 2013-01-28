@@ -27,14 +27,30 @@ In your web page:
 <script>
 jQuery(function($) {
   var $form        = $('form');
-  var $checkallbox = $('<input type="checkbox"/>').prependTo($form.find('header')).checkallbox();
+  var $checkallbox = $('<input type="checkbox"/>')
+                       .prependTo($form.find('header'))
+                       .checkallbox();
   $form.find('header').wrapInner($('<label></label>'));
 });
 </script>
 ```
 
+By default each checkallbox is scoped to its parent `form`, but if you need multiple separate groupings of checkboxes each controlled by their own checkallboxes you can pass a custom `scope` selector:
+
+```html
+<script>
+jQuery(function($) {
+  var $form          = $('form');
+  var $checkallboxes = $('<input type="checkbox"/>')
+                         .prependTo($form.find('fieldset legend'))
+                         .checkallbox({scope: 'fieldset'});
+  $form.find('fieldset legend').wrapInner($('<label></label>'));
+});
+</script>
+```
+
 ## Examples
-See `demo.html` for an example of jQuery.checkallbox in action.
+See `demo.html` for examples of jQuery.checkallbox in action.
 
 ## Release History
 

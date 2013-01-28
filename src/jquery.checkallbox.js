@@ -8,11 +8,12 @@
 
 (function($) {
 
-  $.fn.checkallbox = function() {
+  $.fn.checkallbox = function(opts) {
+    opts = $.extend({}, $.fn.checkallbox.options, opts);
 
     return this.each(function() {
       var $checkallbox = $(this);
-      var $scope       = $checkallbox.parents('form');
+      var $scope       = $checkallbox.parents(opts.scope);
       var $checkboxes  = $scope.find(':checkbox').not($checkallbox);
 
       // Attach event handler
@@ -32,6 +33,10 @@
       // Set initial state of checkallbox
       $scope.trigger(jQuery.Event('change', {target: $checkallbox[0], initial: true}));
     });
+  };
+
+  $.fn.checkallbox.options = {
+    scope: 'form'
   };
 
 }(jQuery));

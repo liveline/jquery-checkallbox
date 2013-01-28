@@ -26,8 +26,11 @@
         -ms-user-select: none;
         user-select: none;
       }
-      form header {
-        margin-bottom: 1px;
+      form fieldset legend {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-bottom: 1px solid white;
         padding: 10px 0 10px 10px;
         background-color: #f4f4f4;
         -webkit-border-radius: 3px 3px 0 0;
@@ -42,6 +45,10 @@
         -webkit-border-radius: 0 0 3px 3px;
         -moz-border-radius: 0 0 3px 3px;
         border-radius: 0 0 3px 3px;
+      }
+      section#multi-list form fieldset {
+        display: inline-block;
+        width: 100px;
       }
       form p label {
         padding: 0 10px;
@@ -60,18 +67,18 @@
     <script src="src/jquery.checkallbox.js"></script>
   </head>
   <body>
-    <div class="container">
 
-      <h1>jQuery.checkallbox Demo</h1>
-      <p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
+    <h1>jQuery.checkallbox Demo</h1>
+    <p>A jQuery plugin that <em>quite literally</em> checks all the boxes.</p>
 
-      <h2>Example</h2>
+    <section id="single-list">
+      <h2>Single List Example</h2>
       <p>
-        <button id="toggle">Add checkallbox</button>
+        <button class="toggle">Add checkallbox</button>
       </p>
       <form>
-        <header>Options</header>
         <fieldset>
+          <legend>Options</legend>
           <p>
             <label><input type="checkbox" name="option_1" value="1"></input>Option 1</label>
           </p>
@@ -86,25 +93,64 @@
           <small>N.B. shift+click checkbox to disable/enable.</small>
         </footer>
       </form>
+    </section>
 
-    </div>
+    <section id="multi-list">
+      <h2>Multiple List Example</h2>
+      <p>
+        <button class="toggle">Add checkallbox</button>
+      </p>
+      <form>
+        <fieldset>
+          <legend>List 1</legend>
+          <p>
+            <label><input type="checkbox" name="item_1" value="1"></input>Item 1</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="item_2" value="1"></input>Item 2</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="item_3" value="1" disabled="disabled"></input>Item 3</label>
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>List 2</legend>
+          <p>
+            <label><input type="checkbox" name="item_4" value="1"></input>Item 4</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="item_5" value="1"></input>Item 5</label>
+          </p>
+          <p>
+            <label><input type="checkbox" name="item_6" value="1" disabled="disabled"></input>Item 6</label>
+          </p>
+        </fieldset>
+        <footer>
+          <small>N.B. shift+click checkbox to disable/enable.</small>
+        </footer>
+      </form>
+    </section>
+
     <script type="text/javascript">
     $(function() {
-      var $form        = $('form');
-      var $checkboxes  = $form.find(':checkbox');
-      var $checkallbox;
+      var $form, $checkallbox;
 
-      $('button#toggle').toggle(function() {
-        $checkallbox = $('<input type="checkbox"/>').prependTo($form.find('header')).checkallbox();
-        $form.find('header').wrapInner($('<label></label>'))
+      $('button.toggle').toggle(function() {
+        $button = $(this);
+        $form   = $button.parents('section').find('form');
+        $('<input type="checkbox"/>').prependTo($form.find('legend')).checkallbox({scope: 'fieldset'});
+        $form.find('legend').wrapInner($('<label></label>'))
         $(this).text('Remove checkallbox');
       }, function() {
-        $label = $form.find('header label');
-        $label.replaceWith($label.text());
-        $(this).text('Add checkallbox');
+        $button = $(this);
+        $form   = $button.parents('section').find('form');
+        $form.find('legend label').each(function(event) {
+          $(this).replaceWith($(this).text());
+        });
+        $button.text('Add checkallbox');
       });
 
-      $form.find('p label').on('click', function(event) {
+      $('form p label').on('click', function(event) {
         var $checkbox = $(this).find(':checkbox');
         if (event.shiftKey) {
           $checkbox.prop('disabled', !$checkbox.prop('disabled'));

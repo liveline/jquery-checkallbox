@@ -50,6 +50,18 @@
 
     });
 
+    describe ("defaults", function() {
+
+      it("should be defined", function() {
+        assert($.fn.checkallbox.options).isDefined();
+      });
+
+      it("should define 'scope'", function() {
+        assert($.fn.checkallbox.options.scope).isEqualTo('form');
+      });
+
+    });
+
     describe("with an empty form", function() {
       var $form, $checkallbox;
 
@@ -257,6 +269,49 @@
 
     });
 
+    describe("with a form with two fieldsets", function() {
+      var $form, $checkallboxes;
+
+      before(function() {
+        $form = $('#qunit-fixture').find('form#two-fieldsets');
+      });
+
+      describe("scoped checkallboxes", function() {
+
+        before(function() {
+          $checkallboxes = $('<input type="checkbox"/>').prependTo($form.find('legend')).checkallbox({scope: 'fieldset'});
+        });
+
+        it("should be two in length", function() {
+          assert($checkallboxes.length).isEqualTo(2);
+        });
+
+      });
+
+      describe("the first of which contains checked checkboxes", function() {
+
+        before(function() {
+          $form.find('fieldset:first-child :checkbox').prop('checked', true);
+        });
+
+        describe("scoped checkallboxes", function() {
+
+          before(function() {
+            $checkallboxes = $('<input type="checkbox"/>').prependTo($form.find('legend')).checkallbox({scope: 'fieldset'});
+          });
+
+          it("should check first checkallbox", function() {
+            assert($checkallboxes.first()).isChecked();
+          });
+
+          it("should not check last checkallbox", function() {
+            assert($checkallboxes.last()).isNotChecked();
+          });
+        });
+
+      });
+
+    });
 
   });
 }(jQuery));
