@@ -25,5 +25,5 @@
   "dependencies": {
     "jquery": ">=1.7.0"
   },
-  "keywords": ["checkbox", "checkboxes", "form", "forms", "check"]
+  "keywords": ["check", "checkbox", "form", "input", "ui"]
 }
