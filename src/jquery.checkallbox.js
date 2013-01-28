@@ -17,13 +17,15 @@
 
       // Attach event handler
       $scope.on('change', ':checkbox', function(event) {
+        var $enabled = $checkboxes.filter(':enabled');
+
         if ($(event.target).is($checkallbox) && !event.initial) {
           // Checkallbox changed
-          $checkboxes.filter(':enabled').prop('checked', $checkallbox.prop('checked'));
+          $enabled.prop('checked', $checkallbox.prop('checked'));
         } else {
           // Initial state or checkbox changed
-          $checkallbox.prop('checked',  $checkboxes.filter(':enabled').length > 0 && $checkboxes.filter(':enabled').not(':checked').length === 0);
-          $checkallbox.prop('disabled', $checkboxes.filter(':enabled').length === 0);
+          $checkallbox.prop('checked',  $enabled.length > 0 && $enabled.not(':checked').length === 0);
+          $checkallbox.prop('disabled', $enabled.length === 0);
         }
       });
 
