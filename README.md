@@ -54,8 +54,12 @@ See `demo.html` or [here](http://liveline.github.com/jquery-checkallbox/) for ex
 
 ## Release History
 
+### v1.1.0
+ * Added `scope` option - #3
+ * Updated specs for IE8- compatibility - #4
+
 ### v1.0.1
- * Fixed issue with checkallbox checked state when checkboxes disabled [#1]
+ * Fixed issue with checkallbox checked state when checkboxes disabled - #1
 
 ### v1.0.0
  * Initial release
