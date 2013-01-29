@@ -238,6 +238,11 @@ footer {
   position:fixed;
   bottom:50px;
 }
+footer a img {
+  position: relative;
+  top: 11px;
+  border: none;
+}
 
 @media print, screen and (max-width: 960px) {
 
