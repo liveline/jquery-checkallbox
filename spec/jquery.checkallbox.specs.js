@@ -109,7 +109,7 @@
           describe("when checked", function() {
 
             before(function() {
-              $checkallbox.click();
+              $checkallbox.prop('checked', true).change();
             });
 
             it("should check the checkboxes", function() {
@@ -138,7 +138,7 @@
           describe("when checked", function() {
 
             before(function() {
-              $checkallbox.click();
+              $checkallbox.prop('checked', true).change();
             });
 
             it("should check the checkboxes", function() {
@@ -167,7 +167,7 @@
           describe("when unchecked", function() {
 
             before(function() {
-              $checkallbox.click();
+              $checkallbox.prop('checked', false).change();
             });
 
             it("should uncheck the checkboxes", function() {
@@ -200,7 +200,7 @@
           describe("when checked", function() {
 
             before(function() {
-              $checkallbox.click();
+              $checkallbox.prop('checked', true).change();
             });
 
             it("should not check the disabled checkboxes", function() {
@@ -233,7 +233,7 @@
             describe("when unchecked", function() {
 
               before(function() {
-                $checkallbox.click();
+                $checkallbox.prop('checked', false).change();
               });
 
               it("should uncheck the enabled checkboxes", function() {
