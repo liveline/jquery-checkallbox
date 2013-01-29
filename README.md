@@ -49,8 +49,8 @@ jQuery(function($) {
 </script>
 ```
 
-## Examples
-See `demo.html` for examples of jQuery.checkallbox in action.
+## Demo
+See `demo.html` or [here](http://liveline.github.com/jquery-checkallbox/) for examples of jQuery.checkallbox in action.
 
 ## Release History
 
