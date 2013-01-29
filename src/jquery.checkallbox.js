@@ -17,7 +17,7 @@
       var $checkboxes  = $scope.find(':checkbox').not($checkallbox);
 
       // Attach event handler
-      $scope.on('change', ':checkbox', function(event) {
+      $scope.on('change.checkallbox', ':checkbox', function(event) {
         var $enabled = $checkboxes.filter(':enabled');
 
         if ($(event.target).is($checkallbox) && !event.initial) {
@@ -31,7 +31,7 @@
       });
 
       // Set initial state of checkallbox
-      $scope.trigger(jQuery.Event('change', {target: $checkallbox[0], initial: true}));
+      $scope.trigger(jQuery.Event('change.checkallbox', {target: $checkallbox[0], initial: true}));
     });
   };
 
