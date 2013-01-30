@@ -68,6 +68,7 @@
       var checkboxes = this._findCheckboxes();
       this.checkallbox.prop('checked',  checkboxes.length > 0 && checkboxes.not(':checked').length === 0);
       this.checkallbox.prop('disabled', checkboxes.length === 0);
+      this.checkallbox.prop('indeterminate', checkboxes.filter(':checked').length > 0 && checkboxes.not(':checked').length > 0);
     },
 
     /**

@@ -33,6 +33,18 @@
       actual.each(function() {
         strictEqual($(this).prop('disabled'), false, 'asserting checkbox is not disabled');
       });
+    },
+
+    isIndeterminate: function(actual, expected, message) {
+      actual.each(function() {
+        strictEqual($(this).prop('indeterminate'), true, 'asserting checkbox is indeterminate');
+      });
+    },
+
+    isNotIndeterminate: function(actual, expected, message) {
+      actual.each(function() {
+        strictEqual($(this).prop('indeterminate'), false, 'asserting checkbox is not indeterminate');
+      });
     }
 
   });
@@ -116,6 +128,10 @@
           assert($checkallbox).isDisabled();
         });
 
+        it("should not be indeterminate", function() {
+          assert($checkallbox).isNotIndeterminate();
+        });
+
         describe("having called 'update' after checkbox added", function() {
 
           before(function() {
@@ -131,7 +147,6 @@
             assert($checkallbox).isNotDisabled();
           });
 
-
         });
 
       });
@@ -146,7 +161,7 @@
         $checkboxes = $form.find(':checkbox');
       });
 
-      // Checked state
+      // Checked/indeterminate state
       describe("neither of which are checked", function() {
 
         before(function() {
@@ -158,6 +173,10 @@
 
           it("should not be checked", function() {
             assert($checkallbox).isNotChecked();
+          });
+
+          it("should not be indeterminate", function() {
+            assert($checkallbox).isNotIndeterminate();
           });
 
           describe("when checked", function() {
@@ -189,6 +208,10 @@
             assert($checkallbox).isNotChecked();
           });
 
+          it("should be indeterminate", function() {
+            assert($checkallbox).isIndeterminate();
+          });
+
           describe("when checked", function() {
 
             before(function() {
@@ -216,6 +239,10 @@
 
           it("should be checked", function() {
             assert($checkallbox).isChecked();
+          });
+
+          it("should not be indeterminate", function() {
+            assert($checkallbox).isNotIndeterminate();
           });
 
           describe("when unchecked", function() {
