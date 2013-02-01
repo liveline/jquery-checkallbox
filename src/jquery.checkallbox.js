@@ -10,6 +10,14 @@
 
   var pluginName = 'checkallbox';
 
+  /**
+   * Create a new Plugin instance
+   *
+   * @constructor
+   * @param {String|Object} element A selector that references, or HTML DOM node instance of, a checkbox element that you want to use as a checkallbox
+   * @param {Object} options Plugin options
+   * @see $.fn.checkallbox.options
+   */
   function Plugin(element, options) {
       this._name       = pluginName;
       this.checkallbox = $(element);
@@ -20,56 +28,104 @@
 
   Plugin.prototype = {
 
+      /**
+       * Initialize Plugin
+       */
       init: function() {
 
-        // Grab reference to `this` for use in event handler
-        var self = this;
-
-        // Find `scope` element; the parent element that encompasses the domain of this checkallbox
-        // Find `checkboxes` to which this checkallbox is related
-        self.scope      = self.checkallbox.parents(self.options.scope);
-        self.checkboxes = self.scope.find(':checkbox').not(self.checkallbox);
+        // Find parent scope element for this checkallbox
+        this.scope = this.checkallbox.parents(this.options.scope);
 
         // Attach single, delegated, namespaced event handler to `scope` element
-        self.scope.on('change.checkallbox', ':checkbox', function(event) {
-
-          // Find `enabled` checkboxes; disabled checkboxes are ignored
-          self.enabled = self.checkboxes.filter(':enabled');
-
-          if ($(event.target).is(self.checkallbox) && !event.initial) {
-            // Checkallbox changed
-            self.enabled.prop('checked', self.checkallbox.prop('checked'));
+        this.scope.on('change.checkallbox', ':checkbox', $.proxy(function(event) {
+          if ($(event.target).is(this.checkallbox)) {
+            this._updateCheckboxes();
           } else {
-            // Initial state or checkbox changed
-            self.checkallbox.prop('checked',  self.enabled.length > 0 && self.enabled.not(':checked').length === 0);
-            self.checkallbox.prop('disabled', self.enabled.length === 0);
+            this._updateCheckallbox();
           }
-        });
+        }, this));
 
         // Set initial state of checkallbox
-        self.scope.trigger(jQuery.Event('change.checkallbox', {target: self.checkallbox[0], initial: true}));
-      }
+        this._updateCheckallbox();
+      },
 
+      /**
+       * Find all enabled checkboxes in the current scope
+       *
+       * This is called each time we update check(all)boxes' state so that we
+       * pick up any DOM changes that may have occurred since instantiation
+       *
+       * @return {Object} jQuery collection of checkboxes
+       */
+      _findCheckboxes: function() {
+        return this.scope.find(':checkbox').not(this.checkallbox).filter(':enabled');
+      },
+
+      /**
+       * Update checkallbox properties based on its enabled checkboxes' properties
+       */
+      _updateCheckallbox: function() {
+        var checkboxes = this._findCheckboxes();
+        this.checkallbox.prop('checked',  checkboxes.length > 0 && checkboxes.not(':checked').length === 0);
+        this.checkallbox.prop('disabled', checkboxes.length === 0);
+      },
+
+      /**
+       * Update checkboxes' properties based on their enabled checkallbox's properties
+       */
+      _updateCheckboxes: function() {
+        var checkboxes = this._findCheckboxes();
+        checkboxes.prop('checked', this.checkallbox.prop('checked'));
+      }
   };
 
+  /**
+   * Expose _updateCheckallbox() in public API as $.fn.checkallbox('update')
+   *
+   * @example
+   * // Manually update checkallbox state;
+   * // use this if you've modified the checkboxes in some way and the checkallbox is now out of sync
+   * $("<input type='checkbox'").checkallbox('update');
+   */
+  Plugin.prototype.update =  Plugin.prototype._updateCheckallbox;
+
+  /**
+   * Plugin instantiation and method calling boilerplate
+   *
+   * @example
+   * $("<input type='checkbox'").checkallbox({scope: 'fieldset'});
+   *
+   * @return {Object} jQuery collection
+   */
   $.fn[pluginName] = function(options) {
-      var args = arguments;
-      if (options === undefined || typeof options === 'object') {
-          return this.each(function() {
-              if (!$.data(this, 'plugin_' + pluginName)) {
-                  $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
-              }
-          });
-      } else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-          return this.each(function () {
-              var instance = $.data(this, 'plugin_' + pluginName);
-              if (instance instanceof Plugin && typeof instance[options] === 'function') {
-                  instance[options].apply(instance, Array.prototype.slice.call(args, 1));
-              }
-          });
-      }
+    var args   = arguments;
+    var method = (options === undefined || typeof options === 'object') ? 'init' : options;
+
+    if (method === 'init') {
+      return this.each(function() {
+        if (!$.data(this, 'plugin_' + pluginName)) {
+          $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+        }
+      });
+    } else {
+      return this.each(function () {
+        var instance = $.data(this, 'plugin_' + pluginName);
+        if (method[0] !== '_' && instance instanceof Plugin && typeof instance[options] === 'function') {
+          instance[options].apply(instance, Array.prototype.slice.call(args, 1));
+        } else {
+          $.error("Method '" +  options + "' does not exist on " + pluginName);
+        }
+      });
+    }
   };
 
+  /**
+   * Default plugin options
+   *
+   * Update $.fn.checkallbox.options to change the default options of each instance of plugin
+   *
+   * @property {String} scope The parent element that encompasses the domain of this checkallbox
+   */
   $.fn.checkallbox.options = {
     scope: 'form'
   };

@@ -8,6 +8,9 @@
 
   pavlov.specify.extendAssertions({
 
+    throwsNoMethodError: function(actual) {
+    },
+
     isChecked: function(actual, expected, message) {
       actual.each(function() {
         strictEqual($(this).prop('checked'), true, 'asserting checkbox is checked');
@@ -48,7 +51,40 @@
         assert($elems.checkallbox()).equals($elems);
       });
 
+      describe("calls", function() {
+
+        var $checkallbox, msg;
+
+        before(function() {
+          $checkallbox = $elems.checkallbox();
+        });
+
+        describe("_updateCheckallbox", function() {
+          it("should not be accessible", function() {
+            assert(function() {
+              $checkallbox.checkallbox('_updateCheckallbox');
+            }).throwsException(new Error("Method '_updateCheckallbox' does not exist on checkallbox"));
+          });
+        });
+
+        describe("_updateCheckboxes", function() {
+          it("should not be accessible", function() {
+            assert(function() {
+              $checkallbox.checkallbox('_updateCheckboxes');
+            }).throwsException(new Error("Method '_updateCheckboxes' does not exist on checkallbox"));
+          });
+        });
+
+        describe("update", function() {
+          it("should be accessible", function() {
+            assert($checkallbox.checkallbox('update')).pass();
+          });
+        });
+
+      });
+
     });
+
 
     describe ("defaults", function() {
 
@@ -78,6 +114,24 @@
 
         it("should be disabled", function() {
           assert($checkallbox).isDisabled();
+        });
+
+        describe("having called 'update' after checkbox added", function() {
+
+          before(function() {
+            $form.append($("<input type='checkbox' checked='checked'/>"));
+            $checkallbox.checkallbox('update');
+          });
+
+          it("should be checked", function() {
+            assert($checkallbox).isChecked();
+          });
+
+          it("should not be disabled", function() {
+            assert($checkallbox).isNotDisabled();
+          });
+
+
         });
 
       });
