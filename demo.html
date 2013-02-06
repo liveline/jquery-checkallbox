@@ -157,9 +157,8 @@
         var $checkbox = $(this).find(':checkbox');
         if (event.shiftKey) {
           $checkbox.prop('disabled', !$checkbox.prop('disabled'));
-          if ($checkallbox) {
-            $form.trigger(jQuery.Event('change.checkallbox', {target: $checkallbox[0], initial: true}));
-          };
+          $checkallbox = $checkbox.parents('fieldset').find('legend input:checkbox');
+          $checkallbox.checkallbox('update');
           event.preventDefault();
         }
 
