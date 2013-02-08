@@ -1,6 +1,6 @@
 # jQuery.checkallbox
 
-A jQuery plugin that *quite literally* checks all the boxes.
+A jQuery plugin that *quite literally* checks all the boxes; apply it to a checkbox to bulk check/uncheck groups of checkboxes.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -53,6 +53,12 @@ jQuery(function($) {
 See `demo.html` or [here](http://liveline.github.com/jquery-checkallbox/) for examples of jQuery.checkallbox in action.
 
 ## Release History
+
+### v1.2.0
+ * Convert to Constructor architecture and guard against multiple initialisation - #5
+ * Expose public 'update' method - #6
+ * Set checkallbox state to 'indeterminate' when checkboxes not all checked or unchecked - #7
+ * Namespaced event handler - #8
 
 ### v1.1.0
  * Added `scope` option - #3
