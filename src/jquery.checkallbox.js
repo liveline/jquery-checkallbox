@@ -19,64 +19,64 @@
    * @see $.fn.checkallbox.options
    */
   function Plugin(element, options) {
-      this._name       = pluginName;
-      this.checkallbox = $(element);
-      this.options     = $.extend({}, $.fn[pluginName].options, options) ;
+    this._name       = pluginName;
+    this.checkallbox = $(element);
+    this.options     = $.extend({}, $.fn[pluginName].options, options) ;
 
-      this.init();
+    this.init();
   }
 
   Plugin.prototype = {
 
-      /**
-       * Initialize Plugin
-       */
-      init: function() {
+    /**
+     * Initialize Plugin
+     */
+    init: function() {
 
-        // Find parent scope element for this checkallbox
-        this.scope = this.checkallbox.parents(this.options.scope);
+      // Find parent scope element for this checkallbox
+      this.scope = this.checkallbox.parents(this.options.scope);
 
-        // Attach single, delegated, namespaced event handler to `scope` element
-        this.scope.on('change.checkallbox', ':checkbox', $.proxy(function(event) {
-          if ($(event.target).is(this.checkallbox)) {
-            this._updateCheckboxes();
-          } else {
-            this._updateCheckallbox();
-          }
-        }, this));
+      // Attach single, delegated, namespaced event handler to `scope` element
+      this.scope.on('change.checkallbox', ':checkbox', $.proxy(function(event) {
+        if ($(event.target).is(this.checkallbox)) {
+          this._updateCheckboxes();
+        } else {
+          this._updateCheckallbox();
+        }
+      }, this));
 
-        // Set initial state of checkallbox
-        this._updateCheckallbox();
-      },
+      // Set initial state of checkallbox
+      this._updateCheckallbox();
+    },
 
-      /**
-       * Find all enabled checkboxes in the current scope
-       *
-       * This is called each time we update check(all)boxes' state so that we
-       * pick up any DOM changes that may have occurred since instantiation
-       *
-       * @return {Object} jQuery collection of checkboxes
-       */
-      _findCheckboxes: function() {
-        return this.scope.find(':checkbox').not(this.checkallbox).filter(':enabled');
-      },
+    /**
+     * Find all enabled checkboxes in the current scope
+     *
+     * This is called each time we update check(all)boxes' state so that we
+     * pick up any DOM changes that may have occurred since instantiation
+     *
+     * @return {Object} jQuery collection of checkboxes
+     */
+    _findCheckboxes: function() {
+      return this.scope.find(':checkbox').not(this.checkallbox).filter(':enabled');
+    },
 
-      /**
-       * Update checkallbox properties based on its enabled checkboxes' properties
-       */
-      _updateCheckallbox: function() {
-        var checkboxes = this._findCheckboxes();
-        this.checkallbox.prop('checked',  checkboxes.length > 0 && checkboxes.not(':checked').length === 0);
-        this.checkallbox.prop('disabled', checkboxes.length === 0);
-      },
+    /**
+     * Update checkallbox properties based on its enabled checkboxes' properties
+     */
+    _updateCheckallbox: function() {
+      var checkboxes = this._findCheckboxes();
+      this.checkallbox.prop('checked',  checkboxes.length > 0 && checkboxes.not(':checked').length === 0);
+      this.checkallbox.prop('disabled', checkboxes.length === 0);
+    },
 
-      /**
-       * Update checkboxes' properties based on their enabled checkallbox's properties
-       */
-      _updateCheckboxes: function() {
-        var checkboxes = this._findCheckboxes();
-        checkboxes.prop('checked', this.checkallbox.prop('checked'));
-      }
+    /**
+     * Update checkboxes' properties based on their enabled checkallbox's properties
+     */
+    _updateCheckboxes: function() {
+      var checkboxes = this._findCheckboxes();
+      checkboxes.prop('checked', this.checkallbox.prop('checked'));
+    }
   };
 
   /**
