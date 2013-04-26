@@ -77,6 +77,7 @@
     _updateCheckboxes: function() {
       var checkboxes = this._findCheckboxes();
       checkboxes.prop('checked', this.checkallbox.prop('checked'));
+      checkboxes.prop('indeterminate', false);
     }
   };
 
